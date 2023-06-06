@@ -1,11 +1,19 @@
-import React from "react";
-import profileImg from "../../src/assets/profile.jpg";
+import React, { useContext } from "react";
+import profileImg from "../../../assets/profile.jpg";
+import { AuthContext } from "../../../Provider/Authproviders";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   const options = (
     <>
       <li>
-        <a>Home</a>
+      <NavLink
+        to="/"
+        className={({ isActive }) => (isActive ? "text-purple-500" : "")}
+      >
+        Home
+      </NavLink>
       </li>
       <li>
         <a>Instructors</a>
@@ -13,17 +21,16 @@ const Navbar = () => {
       <li>
         <a>Classes</a>
       </li>
-      <li>
-        <a>Classes</a>
-      </li>
-      <li>
-        <a>Dashboard</a>
-      </li>
+      {user && (
+        <li>
+          <a>Dashboard</a>
+        </li>
+      )}
     </>
   );
   return (
     <>
-      <div className="navbar bg-base-200 shadow-md">
+      <div className="navbar bg-base-200 shadow-md px-8">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -55,7 +62,16 @@ const Navbar = () => {
         </div>
         {/* profile picture and dropdown */}
         <div className="navbar-end">
-          <img src={profileImg} className="w-20 rounded-full" />
+          {user ? (
+            <>
+              <img src={profileImg} className="w-20 rounded-full" />
+              <div className="ml-5">
+                <button className="btn">LogOut</button>
+              </div>
+            </>
+          ) : (
+            <button className="btn">LogIn</button>
+          )}
         </div>
       </div>
     </>
