@@ -1,19 +1,28 @@
 import React, { useContext } from "react";
 import profileImg from "../../../assets/profile.jpg";
 import { AuthContext } from "../../../Provider/Authproviders";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+  const handleSignOut = () => {
+    logOut()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   const options = (
     <>
       <li>
-      <NavLink
-        to="/"
-        className={({ isActive }) => (isActive ? "text-purple-500" : "")}
-      >
-        Home
-      </NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "text-purple-500" : "")}
+        >
+          Home
+        </NavLink>
       </li>
       <li>
         <a>Instructors</a>
@@ -28,6 +37,7 @@ const Navbar = () => {
       )}
     </>
   );
+  console.log(user);
   return (
     <>
       <div className="navbar bg-base-200 shadow-md px-8">
@@ -64,13 +74,17 @@ const Navbar = () => {
         <div className="navbar-end">
           {user ? (
             <>
-              <img src={profileImg} className="w-20 rounded-full" />
+              <img src={user?.photoURL} className="w-10 rounded-full" />
               <div className="ml-5">
-                <button className="btn">LogOut</button>
+                <button onClick={handleSignOut} className="btn">
+                  LogOut
+                </button>
               </div>
             </>
           ) : (
-            <button className="btn">LogIn</button>
+            <Link to="/login" className="btn">
+              LogIn
+            </Link>
           )}
         </div>
       </div>

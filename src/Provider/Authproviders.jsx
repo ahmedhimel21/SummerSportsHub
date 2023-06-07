@@ -1,43 +1,51 @@
-import {GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth';
-import app from '../firebase/firebase.config';
-import { createContext, useEffect, useState } from 'react';
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import app from "../firebase/firebase.config";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 // social login
 const googleAuthProvider = new GoogleAuthProvider();
 
-const Authproviders = ({children}) =>{
-  const [user,setUser] = useState(null);
-  const [loading,setLoading] = useState(true);
+const Authproviders = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   // create user or signUp
-  const createUser = (email,password) =>{
+  const createUser = (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth,email,password);
-  }
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
   // social login popup
-  const signInWithGoogle = () =>{
-    return signInWithPopup(auth,googleAuthProvider);
-  }
+  const signInWithGoogle = () => {
+    return signInWithPopup(auth, googleAuthProvider);
+  };
   // signIn
-  const signIn =(email,password) =>{
+  const signIn = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth,email,password);
-  }
+    return signInWithEmailAndPassword(auth, email, password);
+  };
   // signOut
-  const logOut = () =>{
+  const logOut = () => {
     return signOut(auth);
-  }
+  };
   // observe auth state change
-  useEffect(() =>{
-    const unsubscribe = onAuthStateChanged(auth,(currentUser) =>{
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
     });
-    return () =>{
+    return () => {
       unsubscribe();
-    }
-  },[]);
+    };
+  }, []);
 
   const authInfo = {
     createUser,
@@ -46,8 +54,10 @@ const Authproviders = ({children}) =>{
     user,
     logOut,
     loading,
-    auth 
+    auth,
   };
-  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 export default Authproviders;
