@@ -24,10 +24,20 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <a>Instructors</a>
+        <NavLink
+          to="/instructors"
+          className={({ isActive }) => (isActive ? "text-purple-500" : "")}
+        >
+          Instructors
+        </NavLink>
       </li>
       <li>
-        <a>Classes</a>
+        <NavLink
+          to="/classes"
+          className={({ isActive }) => (isActive ? "text-purple-500" : "")}
+        >
+          Classes
+        </NavLink>
       </li>
       {user && (
         <li>
@@ -76,10 +86,11 @@ const Navbar = () => {
         <div className="navbar-end">
           {user ? (
             <>
-              <img
-                src={user?.photoURL}
-                className="w-10 rounded-full object-cover"
-              />
+              <div className="avatar">
+                <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <img src={user?.photoURL} title={user?.displayName} />
+                </div>
+              </div>
               <div className="ml-5">
                 <button onClick={handleSignOut} className="btn">
                   LogOut
