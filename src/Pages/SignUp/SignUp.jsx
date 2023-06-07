@@ -12,7 +12,7 @@ const SignUp = () => {
   const [show, setShow] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  // const [imageUrl, setImageUrl] = useState(null);
+  
   const {
     register,
     handleSubmit,

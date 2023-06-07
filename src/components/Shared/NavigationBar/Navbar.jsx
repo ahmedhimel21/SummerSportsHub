@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import profileImg from "../../../assets/profile.jpg";
 import { AuthContext } from "../../../Provider/Authproviders";
 import { Link, NavLink } from "react-router-dom";
 
@@ -40,7 +39,7 @@ const Navbar = () => {
   console.log(user);
   return (
     <>
-      <div className="navbar bg-base-200 shadow-md px-8">
+      <div className="navbar bg-base-200 shadow-md px-20 py-4">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -63,9 +62,12 @@ const Navbar = () => {
               {options}
             </ul>
           </div>
-          <a className="btn btn-outline btn-primary normal-case text-xl">
+          <Link
+            to="/"
+            className="btn btn-outline btn-primary normal-case text-xl"
+          >
             SummerSportsHub
-          </a>
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{options}</ul>
@@ -74,7 +76,10 @@ const Navbar = () => {
         <div className="navbar-end">
           {user ? (
             <>
-              <img src={user?.photoURL} className="w-10 rounded-full" />
+              <img
+                src={user?.photoURL}
+                className="w-10 rounded-full object-cover"
+              />
               <div className="ml-5">
                 <button onClick={handleSignOut} className="btn">
                   LogOut
