@@ -44,6 +44,18 @@ const Login = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        const savedUser = {name: loggedUser.displayName, email: loggedUser.email}
+        fetch('http://localhost:5000/users',{
+          method: 'POST',
+          headers:{
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(savedUser)
+        })
+        .then(res =>res.json())
+        .then(data =>{
+          navigate(from,{replace:true})
+        })
       })
       .catch((error) => {
         console.log(error);
@@ -99,13 +111,6 @@ const Login = () => {
                   </a>
                 </label>
               </div>
-              <div className="divider">OR</div>
-              <button
-                onClick={handleGoogleSignIn}
-                className="btn btn-circle btn-outline mx-auto"
-              >
-                <FaGoogle></FaGoogle>
-              </button>
               <div className="form-control mt-6">
                 <input
                   type="submit"
@@ -114,6 +119,13 @@ const Login = () => {
                 />
               </div>
             </form>
+            <div className="divider">OR</div>
+              <button
+                onClick={handleGoogleSignIn}
+                className="btn btn-circle btn-outline mx-auto mb-3"
+              >
+                <FaGoogle></FaGoogle>
+              </button>
           </div>
         </div>
       </div>

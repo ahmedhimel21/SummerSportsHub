@@ -1,6 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
+  const isAdmin = true; //TODO
+  const isInstructors = false; //TODO
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -15,8 +17,52 @@ const Dashboard = () => {
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-      <ul className="menu p-4 w-80 h-full bg-purple-500 text-xl text-white">
-          <div><h1 className="text-center pb-10 text-3xl font-bold">SummerSportsHub</h1></div>
+        <ul className="menu p-4 w-80 h-full bg-purple-500 text-xl text-white">
+          <div>
+            <h1 className="text-center pb-10 text-3xl font-bold">
+              SummerSportsHub
+            </h1>
+          </div>
+          {isAdmin && (
+            <>
+              <li>
+                <NavLink
+                  to=""
+                  className={({ isActive }) => (isActive ? "text-white" : "")}
+                >
+                  Manage Classes
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/manageUsers"
+                  className={({ isActive }) => (isActive ? "text-white" : "")}
+                >
+                  Manage Users
+                </NavLink>
+              </li>
+            </>
+          )}
+          {isInstructors && (
+            <>
+              <li>
+                <NavLink
+                  to=""
+                  className={({ isActive }) => (isActive ? "text-white" : "")}
+                >
+                  Add a Class
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to=""
+                  className={({ isActive }) => (isActive ? "text-white" : "")}
+                >
+                  My Classes
+                </NavLink>
+              </li>
+            </>
+          )}
           <li>
             <NavLink
               to="/dashboard/mySelectedClasses"
@@ -26,7 +72,7 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-          <NavLink
+            <NavLink
               to=""
               className={({ isActive }) => (isActive ? "text-white" : "")}
             >
@@ -34,7 +80,7 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-          <NavLink
+            <NavLink
               to=""
               className={({ isActive }) => (isActive ? "text-white" : "")}
             >
@@ -43,7 +89,7 @@ const Dashboard = () => {
           </li>
           <div className="divider bg-white"></div>
           <li>
-          <NavLink
+            <NavLink
               to="/"
               className={({ isActive }) => (isActive ? "text-white" : "")}
             >
@@ -51,15 +97,15 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li>
-          <NavLink
+            <NavLink
               to="/classes"
               className={({ isActive }) => (isActive ? "text-white" : "")}
             >
-             Classes
+              Classes
             </NavLink>
           </li>
           <li>
-          <NavLink
+            <NavLink
               to="/instructors"
               className={({ isActive }) => (isActive ? "text-white" : "")}
             >

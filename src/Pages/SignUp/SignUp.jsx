@@ -3,7 +3,7 @@ import Lottie from "lottie-react";
 import signUpAnimation from "../../../public/signUp.json";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../Provider/Authproviders";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 
@@ -12,7 +12,8 @@ const SignUp = () => {
   const [show, setShow] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -43,8 +44,22 @@ const SignUp = () => {
             console.log(loggedUser);
             setSuccess("User has been created successfully");
             updateUserData(result.user, name, imageUrl);
+
+            const savedUser = { name, email };
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(savedUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+              });
             setError("");
             reset();
+            navigate("/");
           })
           .catch((error) => {
             console.log(error);
@@ -63,6 +78,7 @@ const SignUp = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        navigate('/')
       })
       .catch((error) => {
         console.log(error);
@@ -198,13 +214,6 @@ const SignUp = () => {
                   </Link>
                 </a>
               </label>
-              <div className="divider">OR</div>
-              <button
-                onClick={handleGoogleSignIn}
-                className="btn btn-circle btn-outline mx-auto"
-              >
-                <FaGoogle></FaGoogle>
-              </button>
               <div className="form-control mt-6">
                 <input
                   className="btn btn-primary"
@@ -213,6 +222,13 @@ const SignUp = () => {
                 />
               </div>
             </form>
+            <div className="divider">OR</div>
+            <button
+              onClick={handleGoogleSignIn}
+              className="btn btn-circle btn-outline mx-auto mb-3"
+            >
+              <FaGoogle></FaGoogle>
+            </button>
           </div>
         </div>
       </div>
