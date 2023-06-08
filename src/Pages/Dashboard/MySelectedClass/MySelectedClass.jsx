@@ -1,14 +1,34 @@
 import React from "react";
 import { useCart } from "../../../hooks/useCart";
+import Swal from "sweetalert2";
 
 const MySelectedClass = () => {
-  const [cart] = useCart();
+  const [cart,refetch] = useCart();
   console.log(cart);
   const totalCost = cart.reduce(
     (sum, SelectedClass) => SelectedClass.price + sum,
     0
   );
   const cost = totalCost.toFixed(2);
+  const handleDeleteClass= (singleClass) =>{
+    console.log(singleClass._id);
+    fetch(`http://localhost:5000/carts/${singleClass._id}`,{
+      method: 'DELETE'
+    })
+    .then(res =>res.json())
+    .then(data =>{
+      if(data.deletedCount>0){
+        refetch();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Class deleted successfully',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+  }
   return (
     <div className="w-full bg-gray-100 shadow-lg text-whi p-6">
       <div className="flex justify-evenly items-center mb-4">
@@ -35,32 +55,30 @@ const MySelectedClass = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              cart.map((singleClass,index) => <tr key={singleClass._id}>
-              <td>
-                {index+1}
-              </td>
-              <td>
-                <div className="flex items-center space-x-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src={singleClass.image}
-                        alt="class image"
-                      />
+            {cart.map((singleClass, index) => (
+              <tr key={singleClass._id}>
+                <td>{index + 1}</td>
+                <td>
+                  <div className="flex items-center space-x-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img src={singleClass.image} alt="class image" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td>
-               {singleClass.name}
-              </td>
-              <td>{singleClass.price.toFixed(2)}</td>
-              <th>
-                <button className="btn  btn-error btn-xs">Delete</button>
-              </th>
-            </tr>)
-            }
+                </td>
+                <td>{singleClass.name}</td>
+                <td>{singleClass.price.toFixed(2)}</td>
+                <th>
+                  <button
+                    onClick={() => handleDeleteClass(singleClass)}
+                    className="btn  btn-error btn-xs"
+                  >
+                    Delete
+                  </button>
+                </th>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
