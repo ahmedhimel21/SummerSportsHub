@@ -35,7 +35,7 @@ const Classes = () => {
     console.log(classItem)
     const {name,image,price,seats,_id} = classItem;
     if(user && user.email){
-     const cartItem = {classId: _id, name,image,price,seats};
+     const cartItem = {classId: _id, name,image,price,seats, email: user?.email};
      fetch('http://localhost:5000/carts',{
       method: 'POST',
       headers: {'content-type': 'application/json'},
