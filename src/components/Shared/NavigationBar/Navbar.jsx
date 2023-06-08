@@ -41,7 +41,12 @@ const Navbar = () => {
       </li>
       {user && (
         <li>
-          <a>Dashboard</a>
+          <NavLink
+            to="/dashboard/mySelectedClasses"
+            className={({ isActive }) => (isActive ? "text-purple-500" : "")}
+          >
+            Dashboard
+          </NavLink>
         </li>
       )}
     </>
