@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import Container from "../../components/Shared/Container/Container";
 import { AuthContext } from "../../Provider/Authproviders";
+import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const Classes = () => {
   const {user} = useContext(AuthContext);
-  
   const [classes,setClasses] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() =>{
     fetch('http://localhost:5000/classes')
@@ -16,18 +19,56 @@ const Classes = () => {
   
   const isAdminOrInstructor = true; // Example, change it based on user roles
 
-  const handleSelectClass = (classId) => {
-    if (!user) {
-      alert("Please log in before selecting the course.");
-      return;
-    }
+  const handleSelectClass = (classItem) => {
+    // if (!user) {
+    //   alert("Please log in before selecting the course.");
+    //   return;
+    // }
 
     // if (isAdminOrInstructor) {
     //   return;
     // }
 
     // Handle class selection logic
-    console.log(`Selected class with ID: ${classId}`);
+    // console.log(`Selected class with ID: ${classItem}`);
+
+    console.log(classItem)
+    const {name,image,price,seats,_id} = classItem;
+    if(user && user.email){
+     const cartItem = {classId: _id, name,image,price,seats};
+     fetch('http://localhost:5000/carts',{
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify(cartItem)
+     }) 
+     .then(res =>res.json())
+     .then(data =>{
+      if(data.insertedId){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+     })
+    }
+    else{
+      Swal.fire({
+        title: 'Please login to enrolled class',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Login first!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+         navigate('/login',{state:{from:location}})
+        }
+      })
+    }
+    
   };
 
   return (
@@ -58,7 +99,7 @@ const Classes = () => {
             <div className="px-6 py-4">
               <button
   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={() => handleSelectClass(classItem._id)}
+                onClick={() => handleSelectClass(classItem)}
                 disabled={classItem.seats === 0 && isAdminOrInstructor===true}
               >
                 {classItem.seats === 0 ? 'Sold Out' : 'Select'}
