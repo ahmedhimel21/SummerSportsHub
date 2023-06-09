@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Container from "../../../components/Shared/Container/Container";
 import { useQuery } from "@tanstack/react-query";;
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageUsers = () => {
+  const [axiosSecure] = useAxiosSecure();
   const { data: users = [], refetch } = useQuery(["users"], async () => {
-    const res = await fetch("http://localhost:5000/users");
-    return res.json();
+    const res = await axiosSecure.get("/users");
+    return res.data;
   });
   console.log(users);
 
@@ -73,7 +75,7 @@ const ManageUsers = () => {
                     ? "Admin"
                     : user.role === "instructor"
                     ? "Instructor"
-                    : ""}
+                    : "student"}
                 </td>
                 <td className="border px-4 py-2">
                   <>
