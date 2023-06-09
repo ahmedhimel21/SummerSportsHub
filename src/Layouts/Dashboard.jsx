@@ -23,7 +23,7 @@ const Dashboard = () => {
               SummerSportsHub
             </h1>
           </div>
-          {isAdmin && (
+          {isAdmin ? (
             <>
               <li>
                 <NavLink
@@ -42,8 +42,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
             </>
-          )}
-          {isInstructors && (
+          ) : isInstructors ? (
             <>
               <li>
                 <NavLink
@@ -62,31 +61,34 @@ const Dashboard = () => {
                 </NavLink>
               </li>
             </>
+          ) : (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/mySelectedClasses"
+                  className={({ isActive }) => (isActive ? "text-white" : "")}
+                >
+                  My selected Class
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to=""
+                  className={({ isActive }) => (isActive ? "text-white" : "")}
+                >
+                  My Enrolled Class
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to=""
+                  className={({ isActive }) => (isActive ? "text-white" : "")}
+                >
+                  Payment History
+                </NavLink>
+              </li>
+            </>
           )}
-          <li>
-            <NavLink
-              to="/dashboard/mySelectedClasses"
-              className={({ isActive }) => (isActive ? "text-white" : "")}
-            >
-              My selected Class
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to=""
-              className={({ isActive }) => (isActive ? "text-white" : "")}
-            >
-              My Enrolled Class
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to=""
-              className={({ isActive }) => (isActive ? "text-white" : "")}
-            >
-              Payment History
-            </NavLink>
-          </li>
           <div className="divider bg-white"></div>
           <li>
             <NavLink
