@@ -9,6 +9,9 @@ import Dashboard from "../Layouts/Dashboard";
 import MySelectedClass from "../Pages/Dashboard/MySelectedClass/MySelectedClass";
 import PrivateRoutes from "./PrivateRoutes";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
+import AdminRoutes from "./AdminRoutes";
+import MyEnrolledClass from "../Pages/Dashboard/MyEnrolledClass/MyEnrolledClass";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 
 
 export const router = createBrowserRouter([
@@ -48,7 +51,15 @@ export const router = createBrowserRouter([
       },
       {
         path: 'manageUsers',
-        element: <ManageUsers></ManageUsers>
+        element: <AdminRoutes><ManageUsers></ManageUsers></AdminRoutes>
+      },
+      {
+        path: 'myClasses',
+        element: <MyEnrolledClass></MyEnrolledClass>
+      },
+      {
+        path: 'payment',
+        element: <Payment></Payment>
       }
     ]
   }

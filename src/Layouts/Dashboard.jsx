@@ -77,7 +77,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to=""
+                  to="/dashboard/myClasses"
                   className={({ isActive }) => (isActive ? "text-white" : "")}
                 >
                   My Enrolled Class
