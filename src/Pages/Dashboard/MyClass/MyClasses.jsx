@@ -1,40 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../../../hooks/useAuth";
 
 const MyClasses = () => {
   const [classes, setClasses] = useState([]);
-
-  // Simulated data for demonstration
-  const sampleClasses = [
-    {
-      id: 1,
-      className: "Yoga Class",
-      instructorName: "John Doe",
-      status: "approved",
-      enrolledStudents: 5,
-      feedback: "",
-    },
-    {
-      id: 2,
-      className: "Pilates Class",
-      instructorName: "John Doe",
-      status: "pending",
-      enrolledStudents: 0,
-      feedback: "",
-    },
-    {
-      id: 3,
-      className: "Zumba Class",
-      instructorName: "John Doe",
-      status: "denied",
-      enrolledStudents: 10,
-      feedback: "Class schedule conflicts with another event.",
-    },
-  ];
-
+  const {user} = useAuth();
+  console.log(user)
   useEffect(() => {
-    // Replace with API call or database query to fetch instructor's classes
-    setClasses(sampleClasses);
+    fetch(`http://localhost:5000/instructorClassesByEmail?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setClasses(data));
   }, []);
+
+  console.log(classes);
 
   return (
     <>
@@ -52,11 +29,11 @@ const MyClasses = () => {
           </thead>
           <tbody>
             {classes.map((classItem) => (
-              <tr key={classItem.id}>
+              <tr key={classItem?._id}>
                 <td>{classItem.className}</td>
-                <td>{classItem.status}</td>
-                <td className="text-center">{classItem.enrolledStudents}</td>
-                <td>{classItem.feedback}</td>
+                <td>{classItem?.status}</td>
+                <td >{classItem?.enrolledStudents || 0}</td>
+                <td>{classItem.feedback?.feedbackText}</td>
                 <td>
                   {/* {classItem.status === "denied" && (
                     <button className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2">

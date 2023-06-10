@@ -20,9 +20,17 @@ const AddClass = () => {
       availableSeats,
       price,
       status: "pending",
+      enrolledStudents: 0,
     };
 
-    // Perform API call or database update to add the class
+    console.log(newClass);
+    fetch('http://localhost:5000/instructorsClasses',{
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify(newClass)
+    }).then(res => res.json()).then(data =>{
+      console.log(data)
+    })
 
     // Reset form fields
     setClassName("");

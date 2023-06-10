@@ -1,55 +1,77 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const ManageClasses = () => {
   const [classes, setClasses] = useState([]);
 
-  // Simulated data for demonstration
-  const sampleClasses = [
-    {
-      id: 1,
-      className: 'Yoga Class',
-      instructorName: 'John Doe',
-      instructorEmail: 'john@example.com',
-      classImage: 'yoga.jpg',
-      availableSeats: 10,
-      price: 20,
-      status: 'pending',
-    },
-    {
-      id: 2,
-      className: 'Pilates Class',
-      instructorName: 'Jane Smith',
-      instructorEmail: 'jane@example.com',
-      classImage: 'pilates.jpg',
-      availableSeats: 5,
-      price: 15,
-      status: 'pending',
-    },
-  ];
+  useEffect(() => {
+    fetch("http://localhost:5000/instructorsClasses")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setClasses(data);
+      });
+  }, []);
 
-  const handleApprove = (classId) => {
-    // Perform API call or database update to update class status to 'approved'
-    const updatedClasses = classes.map((classItem) =>
-      classItem.id === classId ? { ...classItem, status: 'approved' } : classItem
-    );
-    setClasses(updatedClasses);
+  const handleApprove = (classItem) => {
+    console.log(classItem);
+    // const classesData = {
+    //   className: classItem.className,
+    //   status: classItem.status,
+    //   enrolledStudents: classItem.enrolledStudents,
+    //   feedback: classItem.feedback,
+    //   availableSeats: classItem.availableSeats,
+    //   classImage: classItem.classImage,
+    //   instructorEmail: classItem.instructorEmail,
+    //   instructorName: classItem.instructorName,
+    //   price: classItem.price,
+    // };
+    fetch(
+      `http://localhost:5000/instructorsClasses/approved/${classItem?._id}`,
+      {
+        method: "PATCH",
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Class has been approved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
-  const handleDeny = (classId) => {
-    // Perform API call or database update to update class status to 'denied'
-    const updatedClasses = classes.map((classItem) =>
-      classItem.id === classId ? { ...classItem, status: 'denied' } : classItem
-    );
-    setClasses(updatedClasses);
+  const handleDeny = (classItem) => {
+    fetch(`http://localhost:5000/instructorsClasses/denied/${classItem?._id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Class has been Denied",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [selectedClassId, setSelectedClassId] = useState(null);
-  const [feedbackText, setFeedbackText] = useState('');
+  const [feedbackText, setFeedbackText] = useState("");
 
-  const handleOpenFeedbackModal = (classId) => {
-    setSelectedClassId(classId);
-    setFeedbackText('');
+  const handleOpenFeedbackModal = (classItem) => {
+    
+    setSelectedClassId(classItem?._id);
+    setFeedbackText("");
     setFeedbackModalOpen(true);
   };
 
@@ -58,16 +80,31 @@ const ManageClasses = () => {
   };
 
   const handleSendFeedback = () => {
-    // Perform API call or database update to send feedback to the instructor
-    const updatedClasses = classes.map((classItem) =>
-      classItem.id === selectedClassId ? { ...classItem, feedback: feedbackText } : classItem
-    );
-    setClasses(updatedClasses);
+    console.log(selectedClassId,feedbackText);
+    const feedback = {feedbackText};
+    fetch(`http://localhost:5000/instructorsClasses/feedback/${selectedClassId}`, {
+      method: "PATCH",
+      headers:{'content-type': 'application/json'},
+      body: JSON.stringify(feedback)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "feedback has been send",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+
     setFeedbackModalOpen(false);
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="p-4">
       <h2 className="text-2xl font-bold mb-4 text-center">Manage Classes</h2>
       <table className="w-full">
         <thead>
@@ -83,40 +120,55 @@ const ManageClasses = () => {
           </tr>
         </thead>
         <tbody>
-          {sampleClasses.map((classItem) => (
+          {classes.map((classItem) => (
             <tr key={classItem.id}>
               <td className="px-4 py-2">
-                <img src={classItem.classImage} alt={classItem.className} className="w-16 h-16" />
+                <img
+                  src={classItem.classImage}
+                  alt={classItem.className}
+                  className="w-16 h-16"
+                />
               </td>
               <td className="px-4 py-2">{classItem.className}</td>
               <td className="px-4 py-2">{classItem.instructorName}</td>
               <td className="px-4 py-2">{classItem.instructorEmail}</td>
-              <td className="px-4 py-2">{classItem.availableSeats}</td>
+              <td className="px-4 py-2 text-center">
+                {classItem.availableSeats}
+              </td>
               <td className="px-4 py-2">{classItem.price}</td>
               <td className="px-4 py-2">{classItem.status}</td>
-              <td className="px-4 py-2">
-                {classItem.status === 'pending' && (
+              <td className="px-4 py-2 inline-flex">
+                {/* {classItem.status === "pending" && (
                   <>
-                    <button
-                      className="bg-green-500 text-white px-2 py-1 rounded-md mr-2"
-                      onClick={() => handleApprove(classItem.id)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="bg-red-500 text-white px-2 py-1 rounded-md mr-2"
-                      onClick={() => handleDeny(classItem.id)}
-                    >
-                      Deny
-                    </button>
-                    <button
-                      className="bg-blue-500 text-white px-2 py-1 rounded-md"
-                      onClick={() => handleOpenFeedbackModal(classItem.id)}
-                    >
-                      Send Feedback
-                    </button>
+                    
                   </>
-                )}
+                )} */}
+                <button
+                  className="bg-green-500 text-white px-2 py-1 rounded-md mr-2"
+                  onClick={() => handleApprove(classItem)}
+                  disabled={
+                    classItem.status == "Approved" ||
+                    classItem.status == "denied"
+                  }
+                >
+                  Approve
+                </button>
+                <button
+                  className="bg-red-500 text-white px-2 py-1 rounded-md mr-2"
+                  onClick={() => handleDeny(classItem)}
+                  disabled={
+                    classItem.status == "Approved" ||
+                    classItem.status == "denied"
+                  }
+                >
+                  Deny
+                </button>
+                <button
+                  className="bg-blue-500 text-white px-2 py-1 rounded-md"
+                  onClick={() => handleOpenFeedbackModal(classItem)}
+                >
+                  Send Feedback
+                </button>
               </td>
             </tr>
           ))}
