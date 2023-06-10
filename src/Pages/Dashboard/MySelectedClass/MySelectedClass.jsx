@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 
 const MySelectedClass = () => {
-  const {handleSpecificClass} = useAuth();
   const [cart, refetch] = useCart();
   console.log(cart);
   const totalCost = cart.reduce(

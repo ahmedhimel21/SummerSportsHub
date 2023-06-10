@@ -84,7 +84,7 @@ export const CheckoutForm = ({ classes, price }) => {
         date: new Date(),
         cartItems: classes?._id,
         classItems: classes?.classId,
-        status: "service pending",
+        status: "success",
         itemNames: classes?.name,
         image: classes?.image,
       };
@@ -95,7 +95,7 @@ export const CheckoutForm = ({ classes, price }) => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your work has been saved",
+            title: "Your payment has been successful",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -106,6 +106,7 @@ export const CheckoutForm = ({ classes, price }) => {
 
   return (
     <>
+    <h1 className="mb-2 text-xl font-bold">Make payment</h1>
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{

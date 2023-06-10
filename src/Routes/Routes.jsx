@@ -12,6 +12,7 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import AdminRoutes from "./AdminRoutes";
 import MyEnrolledClass from "../Pages/Dashboard/MyEnrolledClass/MyEnrolledClass";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 
 
 export const router = createBrowserRouter([
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
         path: 'payment/:id',
         element: <Payment></Payment>,
         loader: ({params}) => fetch(`http://localhost:5000/carts/${params.id}`)
+      },
+      {
+        path:'paymentHistory',
+        element: <PaymentHistory></PaymentHistory>
       }
     ]
   }
