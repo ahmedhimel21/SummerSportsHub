@@ -3,8 +3,6 @@ import { useAdmin } from "../hooks/useAdmin";
 import { useInstructor } from "../hooks/useInstructor";
 
 const Dashboard = () => {
-  // const isAdmin = true; //TODO
-  // const isInstructors = false; //TODO
   const [isInstructor] = useInstructor();
   const [isAdmin] = useAdmin();
   return (
@@ -31,7 +29,7 @@ const Dashboard = () => {
             <>
               <li>
                 <NavLink
-                  to=""
+                  to="/dashboard/manageClasses"
                   className={({ isActive }) => (isActive ? "text-white" : "")}
                 >
                   Manage Classes
@@ -50,7 +48,7 @@ const Dashboard = () => {
             <>
               <li>
                 <NavLink
-                  to=""
+                  to="/dashboard/addClass"
                   className={({ isActive }) => (isActive ? "text-white" : "")}
                 >
                   Add a Class
@@ -58,7 +56,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to=""
+                  to="/dashboard/myAddedClasses"
                   className={({ isActive }) => (isActive ? "text-white" : "")}
                 >
                   My Classes

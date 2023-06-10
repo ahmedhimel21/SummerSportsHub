@@ -2,7 +2,6 @@ import { Elements } from '@stripe/react-stripe-js';
 import React from 'react';
 import { CheckoutForm } from '../../../components/CheckOutForms/CheckoutForms';
 import { loadStripe } from '@stripe/stripe-js';
-import { useCart } from '../../../hooks/useCart';
 import { useLoaderData } from 'react-router-dom';
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_KEY);
