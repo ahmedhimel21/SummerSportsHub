@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../../../hooks/useCart";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 
 const MySelectedClass = () => {
+  const {handleSpecificClass} = useAuth();
   const [cart, refetch] = useCart();
   console.log(cart);
   const totalCost = cart.reduce(
@@ -30,6 +32,7 @@ const MySelectedClass = () => {
         }
       });
   };
+
   return (
     <div className="w-full bg-gray-100 shadow-lg text-whi p-6">
       <div className="flex justify-evenly items-center mb-4">
@@ -71,8 +74,10 @@ const MySelectedClass = () => {
                 <td>{singleClass.name}</td>
                 <td>{singleClass.price.toFixed(2)}</td>
                 <th>
-                  <Link to="/dashboard/payment">
-                    <button className="btn btn-sm btn-primary">
+                  <Link to={`/dashboard/payment/${singleClass._id}`}>
+                    <button
+                      className="btn btn-sm btn-primary"
+                    >
                       Pay {singleClass.price.toFixed(2)}
                     </button>
                   </Link>
