@@ -44,7 +44,7 @@ const MyEnrolledClass = () => {
                   </div>
                 </td>
                 <td>{classes?.itemNames}</td>
-                <td>{classes?.price}</td>
+                <td>$ {classes?.price}</td>
               </tr>)
               }
           </tbody>

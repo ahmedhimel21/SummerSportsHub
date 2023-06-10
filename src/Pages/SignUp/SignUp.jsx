@@ -44,7 +44,7 @@ const SignUp = () => {
             console.log(loggedUser);
             setSuccess("User has been created successfully");
             updateUserData(result.user, name, imageUrl);
-            const savedUser = { name, email};
+            const savedUser = { name, email,image:imageUrl};
             fetch("http://localhost:5000/users", {
               method: "POST",
               headers: {

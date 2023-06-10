@@ -13,13 +13,22 @@ const ManageUsers = () => {
   console.log(users);
 
   const makeInstructor = (user) => {
-    console.log(user._id);
+    console.log(user);
+    const userData = {name: user?.name, email: user?.email, image: user?.image}
     fetch(`http://localhost:5000/users/instructor/${user?._id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount) {
+          fetch('http://localhost:5000/instructors', {
+            method: 'POST',
+            headers:{
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+          })
+          .then(res => res.json()).then(data => console.log(data))
           refetch();
           Swal.fire({
             position: "top-end",

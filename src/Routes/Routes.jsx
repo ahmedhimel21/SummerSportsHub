@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path:'mySelectedClasses',
-        element: <MySelectedClass></MySelectedClass>
+        element: <PrivateRoutes><MySelectedClass></MySelectedClass></PrivateRoutes>
       },
       {
         path: 'manageUsers',
@@ -56,16 +56,16 @@ export const router = createBrowserRouter([
       },
       {
         path: 'myClasses',
-        element: <MyEnrolledClass></MyEnrolledClass>
+        element: <PrivateRoutes><MyEnrolledClass></MyEnrolledClass></PrivateRoutes>
       },
       {
         path: 'payment/:id',
-        element: <Payment></Payment>,
+        element: <PrivateRoutes><Payment></Payment></PrivateRoutes>,
         loader: ({params}) => fetch(`http://localhost:5000/carts/${params.id}`)
       },
       {
         path:'paymentHistory',
-        element: <PaymentHistory></PaymentHistory>
+        element: <PrivateRoutes><PaymentHistory></PaymentHistory></PrivateRoutes>
       }
     ]
   }

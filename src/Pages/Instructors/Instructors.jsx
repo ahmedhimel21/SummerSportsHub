@@ -9,10 +9,10 @@ const Instructors = () => {
     .then(res =>res.json())
     .then(data => setInstructors(data))
   },[])
-
+  console.log(instructors);
   return (
     <Container>
-      <div className=" mt-8">
+      <div className=" mt-8 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {instructors.map((instructor) => (
             <div key={instructor.id} className="flex flex-col items-center">

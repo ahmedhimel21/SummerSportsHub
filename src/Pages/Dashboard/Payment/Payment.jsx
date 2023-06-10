@@ -8,7 +8,6 @@ import { useLoaderData } from 'react-router-dom';
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_KEY);
 const Payment = () => {
   const data = useLoaderData();
-  const [cart] = useCart();
   const cost = data.price
   const price = parseFloat(cost.toFixed(2));
   console.log(price)
