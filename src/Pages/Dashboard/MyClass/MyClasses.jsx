@@ -20,6 +20,7 @@ const MyClasses = () => {
           {/* head */}
           <thead>
             <tr>
+              <th>#</th>
               <th className="px-4 py-2">Class Name</th>
               <th className="px-4 py-2">Status</th>
               <th className="px-4 py-2">Total Enrolled Students</th>
@@ -28,8 +29,9 @@ const MyClasses = () => {
             </tr>
           </thead>
           <tbody>
-            {classes.map((classItem) => (
+            {classes.map((classItem,index) => (
               <tr key={classItem?._id}>
+                <td>{index+1}</td>
                 <td>{classItem.className}</td>
                 <td>{classItem?.status}</td>
                 <td >{classItem?.enrolledStudents || 0}</td>

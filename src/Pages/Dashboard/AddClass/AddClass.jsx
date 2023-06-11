@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const AddClass = () => {
   const { user } = useAuth();
@@ -30,6 +31,15 @@ const AddClass = () => {
       body: JSON.stringify(newClass)
     }).then(res => res.json()).then(data =>{
       console.log(data)
+      if(data.insertedId){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Class added successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     })
 
     // Reset form fields
