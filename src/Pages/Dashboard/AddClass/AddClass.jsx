@@ -16,14 +16,14 @@ const AddClass = () => {
     const newClass = {
       className,
       classImage,
-      instructorName: user?.displayName,
+      instructor: user?.displayName,
       instructorEmail: user?.email,
-      availableSeats,
-      price,
+      availableSeats: parseFloat(availableSeats),
+      price: parseInt(price),
       status: "pending",
       enrolledStudents: 0,
     };
-
+    console.log(availableSeats)
     console.log(newClass);
     fetch('http://localhost:5000/instructorsClasses',{
       method: 'POST',

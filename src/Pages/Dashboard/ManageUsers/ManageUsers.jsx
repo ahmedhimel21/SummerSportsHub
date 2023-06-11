@@ -64,7 +64,7 @@ const ManageUsers = () => {
   return (
     <Container>
       <div className="mx-auto w-full">
-        <h1 className="text-2xl font-bold my-4">All Users</h1>
+        <h1 className="text-2xl font-bold my-4 text-center">All Users</h1>
         <table className="w-full">
           <thead>
             <tr>

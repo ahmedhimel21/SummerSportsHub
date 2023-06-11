@@ -4,17 +4,6 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
 const ManageClasses = () => {
-  // const [classes, setClasses] = useState([]);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/instructorsClasses")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setClasses(data);
-  //     });
-  // }, []);
-
   const [axiosSecure] = useAxiosSecure();
   const { data: classes = [], refetch } = useQuery(["classes"], async () => {
     const res = await axiosSecure.get("/instructorsClasses");
@@ -23,18 +12,7 @@ const ManageClasses = () => {
   console.log(classes);
 
   const handleApprove = (classItem) => {
-    console.log(classItem);
-    const classesData = {
-      name: classItem.className,
-      status: classItem.status,
-      enrolledStudents: classItem.enrolledStudents,
-      feedback: classItem.feedback,
-      seats: classItem.availableSeats,
-      image: classItem.classImage,
-      instructorEmail: classItem.instructorEmail,
-      instructor: classItem.instructorName,
-      price: classItem.price,
-    };
+    console.log(classItem._id)
     fetch(
       `http://localhost:5000/instructorsClasses/approved/${classItem?._id}`,
       {
@@ -43,14 +21,7 @@ const ManageClasses = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        if (data.modifiedCount) {
-          fetch('http://localhost:5000/classes',{
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify(classesData)
-          }).then(res => res.json()).then(data =>{
-            console.log(data);
-          })
+        if (data.success) {
           refetch();
           Swal.fire({
             position: "top-end",
@@ -87,7 +58,6 @@ const ManageClasses = () => {
   const [feedbackText, setFeedbackText] = useState("");
 
   const handleOpenFeedbackModal = (classItem) => {
-    
     setSelectedClassId(classItem?._id);
     setFeedbackText("");
     setFeedbackModalOpen(true);
@@ -98,13 +68,16 @@ const ManageClasses = () => {
   };
 
   const handleSendFeedback = () => {
-    console.log(selectedClassId,feedbackText);
-    const feedback = {feedbackText};
-    fetch(`http://localhost:5000/instructorsClasses/feedback/${selectedClassId}`, {
-      method: "PATCH",
-      headers:{'content-type': 'application/json'},
-      body: JSON.stringify(feedback)
-    })
+    console.log(selectedClassId, feedbackText);
+    const feedback = { feedbackText };
+    fetch(
+      `http://localhost:5000/instructorsClasses/feedback/${selectedClassId}`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(feedback),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount) {

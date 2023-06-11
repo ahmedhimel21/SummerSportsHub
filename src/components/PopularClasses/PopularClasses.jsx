@@ -5,21 +5,22 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useInstructor } from "../../hooks/useInstructor";
 import { useAdmin } from "../../hooks/useAdmin";
-import { useCart } from "../../hooks/useCart";
 
-const Classes = () => {
+const PopularClasses = () => {
   const { user } = useContext(AuthContext);
-  const [classes, setClasses] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const [isInstructor] = useInstructor();
   const [isAdmin] = useAdmin();
 
+  const [popularClasses, setPopularClasses] = useState([]);
+
   useEffect(() => {
-    fetch("http://localhost:5000/classes")
+    fetch("http://localhost:5000/popularClasses")
       .then((res) => res.json())
-      .then((data) => setClasses(data));
+      .then((data) => setPopularClasses(data));
   }, []);
+  console.log(popularClasses);
 
   const handleSelectClass = (classItem) => {
     if (isAdmin || isInstructor) {
@@ -29,6 +30,7 @@ const Classes = () => {
     if (classItem.seats === 0) {
       return;
     }
+
     console.log(classItem);
     const { name, image, price, seats, _id } = classItem;
     if (user && user.email) {
@@ -74,48 +76,53 @@ const Classes = () => {
   };
 
   return (
-    <Container>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {classes.map((classItem) => (
-          <div
-            key={classItem._id}
-            className={`max-w-sm rounded overflow-hidden shadow-lg m-4 ${
-              classItem.seats === 0 ? "bg-red-200" : ""
-            }`}
-          >
-            <img
-              src={classItem.image}
-              alt={classItem.name}
-              className="w-full h-48 object-cover"
-            />
-            <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2">{classItem.name}</div>
-              <p className="text-gray-700 mb-2">
-                Instructor: {classItem.instructor}
-              </p>
-              <p className="text-gray-700 mb-2">
-                Available seats: {classItem.seats}
-              </p>
-              <p className="text-gray-700 mb-2">Price: ${classItem.price}</p>
+    <div className="mt-8">
+      <Container>
+        <h2 className="text-3xl font-semibold text-gray-800 mb-5 text-center">
+          Popular Classes
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {popularClasses.map((classItem) => (
+            <div
+              key={classItem._id}
+              className={`max-w-sm rounded overflow-hidden shadow-lg m-4 ${
+                classItem.seats === 0 ? "bg-red-200" : ""
+              }`}
+            >
+              <img
+                src={classItem.image}
+                alt={classItem.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="px-6 py-4">
+                <div className="font-bold text-xl mb-2">{classItem.name}</div>
+                <p className="text-gray-700 mb-2">
+                  Instructor: {classItem.instructor}
+                </p>
+                <p className="text-gray-700 mb-2">
+                  Available seats: {classItem.seats}
+                </p>
+                <p className="text-gray-700 mb-2">Price: ${classItem.price}</p>
+              </div>
+              <div className="px-6 py-4">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => handleSelectClass(classItem)}
+                  disabled={
+                    classItem.seats === 0 ||
+                    isAdmin ||
+                    isInstructor
+                  }
+                >
+                  {classItem.seats === 0 ? "Sold Out" : "Select"}
+                </button>
+              </div>
             </div>
-            <div className="px-6 py-4">
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={() => handleSelectClass(classItem)}
-                disabled={
-                  classItem.seats === 0 ||
-                  isAdmin ||
-                  isInstructor 
-                }
-              >
-                {classItem.seats === 0 ? "Sold Out" : "Select"}
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Container>
+          ))}
+        </div>
+      </Container>
+    </div>
   );
 };
 
-export default Classes;
+export default PopularClasses;

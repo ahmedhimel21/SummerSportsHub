@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../../hooks/useAuth';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../../../hooks/useAuth";
 
 const PaymentHistory = () => {
-  const [payments,setPayments] = useState([]);
-  const {user} = useAuth();
-  useEffect(() =>{
+  const [payments, setPayments] = useState([]);
+  const { user } = useAuth();
+  useEffect(() => {
     fetch(`http://localhost:5000/payments?email=${user.email}`)
-    .then(res =>res.json())
-    .then(data =>setPayments(data))
-  },[])
+      .then((res) => res.json())
+      .then((data) => setPayments(data));
+  }, []);
   console.log(payments);
 
   return (
     <div className="w-full bg-gray-100 shadow-lg text-whi p-6">
       <div className="flex justify-evenly items-center mb-4">
-        <h1 className="text-xl font-bold">
-          Payment History
-        </h1>
+        <h1 className="text-xl font-bold">Payment History</h1>
       </div>
       {/* table */}
       <div className="overflow-x-auto">
@@ -32,15 +30,20 @@ const PaymentHistory = () => {
             </tr>
           </thead>
           <tbody>
-              {
-                payments.map((payment,index) => <tr key={payment?._id}>
-                <td>{index+1}</td>
+            {payments.map((payment, index) => (
+              <tr key={payment?._id}>
+                <td>{index + 1}</td>
                 <td>{payment?.price}</td>
                 <td>{payment?.transactionId}</td>
                 <td>{payment?.email}</td>
-                <td>{payment?.date}</td>
-              </tr>)
-              }
+                <td>
+                  {new Date(payment?.date).toLocaleString("en-US", {
+                    dateStyle: "short",
+                    timeStyle: "short",
+                  })}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -51,7 +51,6 @@ const Navbar = () => {
       )}
     </>
   );
-  console.log(user);
   return (
     <>
       <div className="navbar bg-base-200 shadow-md px-20 py-4">

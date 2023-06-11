@@ -11,8 +11,6 @@ const MyClasses = () => {
       .then((data) => setClasses(data));
   }, []);
 
-  console.log(classes);
-
   return (
     <>
       <div className="overflow-x-auto w-full">
@@ -37,11 +35,6 @@ const MyClasses = () => {
                 <td >{classItem?.enrolledStudents || 0}</td>
                 <td>{classItem.feedback?.feedbackText}</td>
                 <td>
-                  {/* {classItem.status === "denied" && (
-                    <button className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2">
-                      Update
-                    </button>
-                  )} */}
               <button className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2">
                     Update
                   </button>
