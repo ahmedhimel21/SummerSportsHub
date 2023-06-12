@@ -11,7 +11,7 @@ const WelcomePage = () => {
         <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">
           Hey, {user?.displayName} 
         </h1>
-        <Lottie animationData={welcome} loop={true} className="w-[500px]"></Lottie>
+        <Lottie animationData={welcome} loop={true}></Lottie>
       </div>
     </div>
   );
