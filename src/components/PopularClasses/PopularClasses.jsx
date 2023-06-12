@@ -67,7 +67,7 @@ const PopularClasses = () => {
   return (
     <div className="mt-8">
       <Container>
-        <h2 className="text-3xl font-semibold text-gray-800 mb-5 text-center">
+        <h2 className="text-3xl font-semibold mb-5 text-center">
           Popular Classes
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
