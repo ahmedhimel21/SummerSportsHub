@@ -12,7 +12,6 @@ const PopularClasses = () => {
   const location = useLocation();
   const [isInstructor] = useInstructor();
   const [isAdmin] = useAdmin();
-
   const [popularClasses, setPopularClasses] = useState([]);
 
   useEffect(() => {
@@ -20,18 +19,8 @@ const PopularClasses = () => {
       .then((res) => res.json())
       .then((data) => setPopularClasses(data));
   }, []);
-  console.log(popularClasses);
 
   const handleSelectClass = (classItem) => {
-    if (isAdmin || isInstructor) {
-      return;
-    }
-
-    if (classItem.seats === 0) {
-      return;
-    }
-
-    console.log(classItem);
     const { name, image, price, seats, _id } = classItem;
     if (user && user.email) {
       const cartItem = {
@@ -109,7 +98,7 @@ const PopularClasses = () => {
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   onClick={() => handleSelectClass(classItem)}
                   disabled={
-                    classItem.seats === 0 ||
+                    classItem?.seats === 0 ||
                     isAdmin ||
                     isInstructor
                   }

@@ -9,7 +9,6 @@ const PaymentHistory = () => {
       .then((res) => res.json())
       .then((data) => setPayments(data));
   }, []);
-  console.log(payments);
 
   return (
     <div className="w-full bg-gray-100 shadow-lg text-whi p-6">

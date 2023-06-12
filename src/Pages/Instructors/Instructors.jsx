@@ -9,7 +9,6 @@ const Instructors = () => {
     .then(res =>res.json())
     .then(data => setInstructors(data))
   },[])
-  console.log(instructors);
   return (
     <Container>
       <div className=" mt-8 mb-8">

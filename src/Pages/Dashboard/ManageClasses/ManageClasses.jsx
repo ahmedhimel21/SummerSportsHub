@@ -129,11 +129,6 @@ const ManageClasses = () => {
               <td className="px-4 py-2">{classItem.price}</td>
               <td className="px-4 py-2">{classItem.status}</td>
               <td className="px-4 py-2 inline-flex">
-                {/* {classItem.status === "pending" && (
-                  <>
-                    
-                  </>
-                )} */}
                 <button
                   className="bg-green-500 text-white px-2 py-1 rounded-md mr-2"
                   onClick={() => handleApprove(classItem)}

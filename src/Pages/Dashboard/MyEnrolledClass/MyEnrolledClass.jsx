@@ -10,7 +10,6 @@ const MyEnrolledClass = () => {
     .then(res =>res.json())
     .then(data =>setMyClasses(data))
   },[])
-  console.log(myClasses);
   return (
     <div className="w-full bg-gray-100 shadow-lg text-whi p-6">
       <div className="flex justify-evenly items-center mb-4">

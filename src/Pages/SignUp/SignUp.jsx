@@ -124,7 +124,6 @@ const SignUp = () => {
                   <span className="label-text">Photo</span>
                 </label>
                 <input
-                  required
                   type="file"
                   id="image"
                   name="image"
