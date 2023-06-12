@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useAdmin } from "../hooks/useAdmin";
 import { useInstructor } from "../hooks/useInstructor";
 import NavigationBar from "../components/Shared/NavigationBar/NavigationBar";
-import { FaBeer, FaBook, FaBookMedical, FaBookReader, FaCartPlus, FaChalkboardTeacher, FaHome, FaRegCheckCircle, FaRegPlusSquare, FaUserPlus, FaWallet } from 'react-icons/fa';
+import {FaBook, FaBookMedical, FaBookReader, FaCartPlus, FaChalkboardTeacher, FaHome, FaRegCheckCircle, FaRegPlusSquare, FaUserPlus, FaWallet } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [isInstructor] = useInstructor();

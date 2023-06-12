@@ -19,26 +19,11 @@ const CampStaff = () => {
       bio: "Emily is a highly accomplished soccer player with a genuine enthusiasm for teaching the beautiful game. Her experience playing at the collegiate level and representing her country in international tournaments provides a solid foundation for her coaching approach. Emily believes in creating a positive and inclusive environment where players can thrive.",
       photo: "https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/pacificu.sidearmsports.com/images/2021/8/19/Wiltshire.jpg",
     },
-    {
-      name: "David Lee - Assistant Coach (Swimming)",
-      bio: "David's passion for swimming began at a young age and has propelled him to become a successful coach. He has coached swimmers at various levels, from beginners to national qualifiers. David focuses on technique refinement and mental preparation, instilling confidence in his swimmers to reach new heights in the pool.",
-      photo: "https://d1l5jyrrh5eluf.cloudfront.net/wp-content/uploads/2017/11/GettyImages-4773841861.jpg",
-    },
-    {
-      name: "Jessica Chen - Camp Counselor",
-      bio: "Jessica's warm and friendly nature makes her an excellent camp counselor. With a background in child development and a love for outdoor activities, she creates engaging and fun experiences for campers. Jessica's ability to connect with children and foster a sense of belonging ensures that each camper feels supported and valued.",
-      photo: "https://tsl.mit.edu/wp-content/uploads/brizy/imgs/Jessica-Chen-375x561x0x0x375x343x1681153489.jpg",
-    },
-    {
-      name: "Alex Ramirez - Support Staff (First Aid and Safety)",
-      bio: "Alex's top priority is the well-being and safety of all campers. With extensive training in first aid and emergency response, Alex ensures that camp activities are conducted in a secure and supervised environment. Their attention to detail and calm demeanor make them a valuable asset in handling any unforeseen situations.",
-      photo: "https://yt3.googleusercontent.com/kd7rhwg0XgbSkGidqnBmZQmWwEu924TEogYoI1fyluawdDb4zp_JWauhhywajo42khWHIyJ6=s900-c-k-c0x00ffffff-no-rj",
-    },
   ];
 
   return (
     <Container>
-      <section className="bg-gray-100 py-12 mt-8">
+      <section className="bg-gray-100 py-12 mt-8 rounded-lg">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">
             Meet Our Staff

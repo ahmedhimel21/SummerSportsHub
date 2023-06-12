@@ -91,7 +91,6 @@ export const CheckoutForm = ({ classes, price }) => {
       axiosSecure.post("/payments", payment).then((res) => {
         console.log(res.data);
         if (res.data.insertResult.acknowledged) {
-          // display confirm
           Swal.fire({
             position: "top-end",
             icon: "success",

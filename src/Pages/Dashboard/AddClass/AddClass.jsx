@@ -155,7 +155,6 @@ const AddClass = () => {
           </div>
         </form>
       </div>
-      {/* new code */}
     </>
   );
 };

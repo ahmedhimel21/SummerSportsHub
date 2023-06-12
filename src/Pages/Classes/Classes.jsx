@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useInstructor } from "../../hooks/useInstructor";
 import { useAdmin } from "../../hooks/useAdmin";
-import { useCart } from "../../hooks/useCart";
 
 const Classes = () => {
   const { user } = useContext(AuthContext);
@@ -22,14 +21,6 @@ const Classes = () => {
   }, []);
 
   const handleSelectClass = (classItem) => {
-    if (isAdmin || isInstructor) {
-      return;
-    }
-
-    if (classItem.seats === 0) {
-      return;
-    }
-    console.log(classItem);
     const { name, image, price, seats, _id } = classItem;
     if (user && user.email) {
       const cartItem = {
