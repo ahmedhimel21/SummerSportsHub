@@ -16,6 +16,7 @@ import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import AddClass from "../Pages/Dashboard/AddClass/AddClass";
 import MyClasses from "../Pages/Dashboard/MyClass/MyClasses";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 
 export const router = createBrowserRouter([
@@ -83,5 +84,9 @@ export const router = createBrowserRouter([
         element: <ManageClasses></ManageClasses>
       }
     ]
-  }
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>,
+  },
 ])
