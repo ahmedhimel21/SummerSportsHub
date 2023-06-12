@@ -2,6 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useAdmin } from "../hooks/useAdmin";
 import { useInstructor } from "../hooks/useInstructor";
 import NavigationBar from "../components/Shared/NavigationBar/NavigationBar";
+import { FaBeer, FaBook, FaBookMedical, FaBookReader, FaCartPlus, FaChalkboardTeacher, FaHome, FaRegCheckCircle, FaRegPlusSquare, FaUserPlus, FaWallet } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [isInstructor] = useInstructor();
@@ -35,7 +36,7 @@ const Dashboard = () => {
                     to="/dashboard/manageClasses"
                     className={({ isActive }) => (isActive ? "text-white" : "")}
                   >
-                    Manage Classes
+                   <FaBookMedical></FaBookMedical> Manage Classes
                   </NavLink>
                 </li>
                 <li>
@@ -43,7 +44,7 @@ const Dashboard = () => {
                     to="/dashboard/manageUsers"
                     className={({ isActive }) => (isActive ? "text-white" : "")}
                   >
-                    Manage Users
+                   <FaUserPlus></FaUserPlus> Manage Users
                   </NavLink>
                 </li>
               </>
@@ -54,7 +55,7 @@ const Dashboard = () => {
                     to="/dashboard/addClass"
                     className={({ isActive }) => (isActive ? "text-white" : "")}
                   >
-                    Add a Class
+                   <FaRegPlusSquare></FaRegPlusSquare> Add a Class
                   </NavLink>
                 </li>
                 <li>
@@ -62,7 +63,7 @@ const Dashboard = () => {
                     to="/dashboard/myAddedClasses"
                     className={({ isActive }) => (isActive ? "text-white" : "")}
                   >
-                    My Classes
+                   <FaBookReader></FaBookReader> My Classes
                   </NavLink>
                 </li>
               </>
@@ -73,7 +74,7 @@ const Dashboard = () => {
                     to="/dashboard/mySelectedClasses"
                     className={({ isActive }) => (isActive ? "text-white" : "")}
                   >
-                    My selected Class
+                   <FaRegCheckCircle></FaRegCheckCircle> My selected Class
                   </NavLink>
                 </li>
                 <li>
@@ -81,7 +82,7 @@ const Dashboard = () => {
                     to="/dashboard/myClasses"
                     className={({ isActive }) => (isActive ? "text-white" : "")}
                   >
-                    My Enrolled Class
+                   <FaCartPlus></FaCartPlus> My Enrolled Class
                   </NavLink>
                 </li>
                 <li>
@@ -89,7 +90,7 @@ const Dashboard = () => {
                     to="/dashboard/paymentHistory"
                     className={({ isActive }) => (isActive ? "text-white" : "")}
                   >
-                    Payment History
+                   <FaWallet></FaWallet> Payment History
                   </NavLink>
                 </li>
               </>
@@ -100,7 +101,7 @@ const Dashboard = () => {
                 to="/"
                 className={({ isActive }) => (isActive ? "text-white" : "")}
               >
-                Home
+                <FaHome></FaHome> Home
               </NavLink>
             </li>
             <li>
@@ -108,7 +109,7 @@ const Dashboard = () => {
                 to="/classes"
                 className={({ isActive }) => (isActive ? "text-white" : "")}
               >
-                Classes
+               <FaBook></FaBook> Classes
               </NavLink>
             </li>
             <li>
@@ -116,7 +117,7 @@ const Dashboard = () => {
                 to="/instructors"
                 className={({ isActive }) => (isActive ? "text-white" : "")}
               >
-                Instructors
+                <FaChalkboardTeacher></FaChalkboardTeacher> Instructors
               </NavLink>
             </li>
           </ul>
